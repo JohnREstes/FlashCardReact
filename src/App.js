@@ -29,10 +29,8 @@ class App extends Component {
           <div id="titleHeader">
             <h1>Flash Cards</h1>
           </div>
-            <div className="container-fluid">
-              <div className="row display-flex" id="card">
-              <BuildCardStack data={this.state.flashCards}/>
-              </div>
+            <div className="container-fluid d-flex justify-content-around">
+                <BuildCardStack data={this.state.flashCards}/>
             </div> 
       </div>
       )

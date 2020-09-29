@@ -5,15 +5,14 @@ function BuildCardStack(props){
     var card = props.data.map(cards => {
       const { _id, title} = cards
       return (
-          
-        <div className="card" key={_id}>
-            <div className="card-body text-center">
-                <h1>{title}</h1>
-            </div>
+        <div className="col-12 col-lg-5 d-flex align-items-center cardContainer" key={_id}>
+                    <h1>{title}</h1>
         </div>
       )
     })
-return (<div>{card}</div>)
+return (<div className="row d-flex justify-content-around">{card}</div>)
   }
 
 export default BuildCardStack;
+
+

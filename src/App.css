@@ -1,9 +1,18 @@
-.card{
+h1{
+  text-align: center!important;
+}
+#titleHeader{
+  text-align: center;
+}
+.cardContainer{
+  border: 1px black solid;
   width: 30rem;
   height: 20rem;
   background-image: url("indecCard.png");
   background-size: cover;
+  margin: 10px;
 }
-#titleHeader{
-  text-align: center;
+.align-items-center {
+  align-items: center!important;
+  
 }
