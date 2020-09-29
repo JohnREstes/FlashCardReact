@@ -1,6 +1,6 @@
 import React from 'react'
 
-function BuildTable(props){
+function BuildCard(props){
     console.log(props.data[0].cards[0].word);
     var header = props.data.map(cards => {
       const { _id, title} = cards
@@ -22,4 +22,4 @@ function BuildTable(props){
     return (<table><thead>{header}</thead><tbody>{table}</tbody></table>)
   }
 
-export default BuildTable;
+export default BuildCard;

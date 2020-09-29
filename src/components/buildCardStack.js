@@ -5,8 +5,11 @@ function BuildCardStack(props){
     var card = props.data.map(cards => {
       const { _id, title} = cards
       return (
+          
         <div className="card" key={_id}>
-          <h1>{title}</h1>
+            <div className="card-body text-center">
+                <h1>{title}</h1>
+            </div>
         </div>
       )
     })

@@ -25,14 +25,18 @@ class App extends Component {
 
   render(){
     return (this.state.loading ? <div>Loading...</div> : (
-    <div>
-        <div id="titleHeader"><h1>Flash Cards</h1>
+      <div>
+          <div id="titleHeader"><h1>Flash Cards</h1>
 
-        <span id="sortAlpha">click title to sort alphabetically</span>
-        </div>
-          <BuildCardStack data={this.state.flashCards}/>
-    </div>
-    )
+          <span id="sortAlpha">click title to sort alphabetically</span>
+          </div>
+            <div className="container-fluid">
+              <div className="row justify-content-around display-flex" id="card">
+              <BuildCardStack data={this.state.flashCards}/>
+              </div>
+            </div> 
+      </div>
+      )
     )
   }  
 }
