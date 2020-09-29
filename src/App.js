@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-import BuildTable from './components/buildTable.js';
+import BuildCardStack from './components/buildCardStack.js';
+import BuildCard from './components/buildCard.js';
 
 class App extends Component {
 
@@ -29,7 +30,7 @@ class App extends Component {
 
         <span id="sortAlpha">click title to sort alphabetically</span>
         </div>
-          <BuildTable data={this.state.flashCards}/>
+          <BuildCardStack data={this.state.flashCards}/>
     </div>
     )
     )

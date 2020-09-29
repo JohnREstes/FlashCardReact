@@ -10,16 +10,15 @@ function BuildTable(props){
         </tr>
       )
     })
-    var table = ""
-    // props.data.cards[0].map(cards => {
-    //     const { _id, word, definition } = cards
-    //     return (
-    //       <tr key={_id}>
-    //         <td>{word}</td>
-    //         <td>{definition}</td>
-    //       </tr>
-    //     )
-    //   })
+    var table = props.data[0].cards.map(cards => {
+        const { _id, word, definition } = cards
+        return (
+          <tr key={_id}>
+            <td>{word}</td>
+            <td>{definition}</td>
+          </tr>
+        )
+      })
     return (<table><thead>{header}</thead><tbody>{table}</tbody></table>)
   }
 
