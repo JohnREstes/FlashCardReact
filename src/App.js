@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
+import BuildTable from './components/buildTable.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      flashCards:[],
+      loading: true
+    }
+
+  }
+
+  componentDidMount() {
+    axios.get(`http://localhost:5000/api/collections`)
+    .then(res => this.setState({ 
+      flashCards: res.data,
+      loading: false
+    }));
+  }
+
+  render(){
+    return (this.state.loading ? <div>Loading...</div> : (
+    <div>
+        <div id="titleHeader"><h1>Flash Cards</h1>
+
+        <span id="sortAlpha">click title to sort alphabetically</span>
+        </div>
+          <BuildTable data={this.state.flashCards}/>
     </div>
-  );
+    )
+    )
+  }  
 }
 
 export default App;
