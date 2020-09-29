@@ -6,8 +6,8 @@ h1{
 }
 .cardContainer{
   border: 1px black solid;
-  width: 30rem;
-  height: 20rem;
+  width: 500px;
+  height: 300px;
   background-image: url("indecCard.png");
   background-size: cover;
   margin: 10px;

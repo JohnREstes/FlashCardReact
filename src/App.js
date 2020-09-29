@@ -46,14 +46,14 @@ class App extends Component {
               <input type="button" value="Add New" onClick={() => this.openModal()} />
             </div>
             <div className="container-fluid d-flex justify-content-around">
-                <BuildCardStack data={this.state.flashCards}/>
+                <BuildCard data={this.state.flashCards}/>
             </div> 
         </div>
         <div>
-                <Modal visible={this.state.visible} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                <Modal visible={this.state.visible} width="500" height="300" effect="fadeInDown" onClickAway={() => this.closeModal()}>
                     <div>
                         <h1>Title</h1>
-                        <p>Some Contents</p>
+                        <p> Some Contents</p>
                         <a href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a>
                     </div>
                 </Modal>

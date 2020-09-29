@@ -1,25 +1,17 @@
 import React from 'react'
 
-function BuildCard(props){
+function BuildCardStack(props){
     console.log(props.data[0].cards[0].word);
-    var header = props.data.map(cards => {
-      const { _id, title} = cards
+    var card = props.data[0].cards.map(cards => {
+      const { _id, word, definition} = cards
       return (
-        <tr key={_id}>
-          <th>{title}</th>
-        </tr>
+        <div className="col-12 col-lg-5 d-flex align-items-center cardContainer" key={_id}>
+                    <h1>{word}</h1>
+                    <h1>{definition}</h1>
+        </div>
       )
     })
-    var table = props.data[0].cards.map(cards => {
-        const { _id, word, definition } = cards
-        return (
-          <tr key={_id}>
-            <td>{word}</td>
-            <td>{definition}</td>
-          </tr>
-        )
-      })
-    return (<table><thead>{header}</thead><tbody>{table}</tbody></table>)
-}
+return (<div className="row d-flex justify-content-between">{card}</div>)
+  }
 
-export default BuildCard;
+export default BuildCardStack;
