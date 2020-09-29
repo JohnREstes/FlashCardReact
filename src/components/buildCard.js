@@ -20,6 +20,6 @@ function BuildCard(props){
         )
       })
     return (<table><thead>{header}</thead><tbody>{table}</tbody></table>)
-  }
+}
 
 export default BuildCard;

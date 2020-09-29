@@ -11,8 +11,8 @@ h1{
   background-image: url("indecCard.png");
   background-size: cover;
   margin: 10px;
+  font-family: Marker Felt, fantasy;
 }
 .align-items-center {
   align-items: center!important;
-  
 }

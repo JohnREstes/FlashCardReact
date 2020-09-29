@@ -10,7 +10,7 @@ function BuildCardStack(props){
         </div>
       )
     })
-return (<div className="row d-flex justify-content-around">{card}</div>)
+return (<div className="row d-flex justify-content-between">{card}</div>)
   }
 
 export default BuildCardStack;
