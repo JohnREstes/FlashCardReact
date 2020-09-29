@@ -4,3 +4,6 @@
   background-image: url("indecCard.png");
   background-size: cover;
 }
+#titleHeader{
+  text-align: center;
+}
