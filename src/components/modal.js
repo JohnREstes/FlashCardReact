@@ -21,7 +21,7 @@ const modal = (props) => {
                 </div>
                 <div className="modal-footer">
                     <button className="btn-cancel" onClick={props.close}>CLOSE</button>
-                    <button className="btn-continue">CONTINUE</button>
+                    <button className="btn-continue">Submit</button>
                 </div>
             </div>
         </div>
