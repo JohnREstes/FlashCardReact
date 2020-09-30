@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-//import BuildCard from './components/buildCardStack.js';
+import $ from 'jquery';
 import BuildCard from './components/buildCard.js';
 import Modal from 'react-awesome-modal';
+
+const currentId = [0,0];
 
 class App extends Component {
 
@@ -13,7 +15,7 @@ class App extends Component {
       flashCards:[],
       loading: true, 
       visible : false,
-      cardClicked: false
+      cardClickedId: ''
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -39,11 +41,14 @@ class App extends Component {
   }
 
 
-  handleClick(event){
+  handleClick(id){
+    currentId[0] = id;
     this.setState({
-      cardClicked: true
+      cardClickedId: id,
     });
-    console.log(event)
+    $(`#${currentId[0]}`).css('border', '5px blue solid');
+    $(`#${currentId[1]}`).css('border', '1px black solid');
+    currentId[1] = id;
   }
 
   render(){
