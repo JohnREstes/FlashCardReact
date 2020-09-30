@@ -5,7 +5,9 @@ import $ from 'jquery';
 import BuildCard from './components/buildCard.js';
 import Modal from 'react-awesome-modal';
 
-const currentId = [0,0];
+var currentId = [0,0];
+var timesClickedWord = 0;
+var timesClickedDefinition = 0;
 
 class App extends Component {
 
@@ -15,7 +17,8 @@ class App extends Component {
       flashCards:[],
       loading: true, 
       visible : false,
-      cardClickedId: ''
+      cardClickedId: '',
+      timesClicked: 0
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -42,13 +45,39 @@ class App extends Component {
 
 
   handleClick(id){
-    currentId[0] = id;
-    this.setState({
-      cardClickedId: id,
-    });
-    $(`#${currentId[0]}`).css('border', '5px blue solid');
-    $(`#${currentId[1]}`).css('border', '1px black solid');
-    currentId[1] = id;
+    let arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
+    console.log(id);
+    console.log(arrayPostion);
+    let string = "";
+    if(currentId[0] !== id){
+      currentId[0] = id;
+      this.setState({
+        cardClickedId: id,
+      });
+      $(`#${currentId[0]}`).css('border', '5px blue solid');
+      $(`#${currentId[1]}`).css('border', '1px black solid');
+      currentId[1] = id;
+    }else{
+      console.log(this.state.flashCards)
+      console.log(this.state.flashCards[`${arrayPostion}`].cards.length);
+      if(timesClickedDefinition === timesClickedWord && (timesClickedDefinition !== (this.state.flashCards[0].cards.length))){
+        string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedWord}`].word;
+        $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
+        timesClickedWord++;
+      }else if (timesClickedDefinition !== timesClickedWord  && (timesClickedDefinition !== (this.state.flashCards[0].cards.length))){
+        string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedDefinition}`].definition;
+        $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
+        timesClickedDefinition++;
+      }else{
+        timesClickedDefinition = 0;
+        timesClickedWord = 0;
+        $(`#${currentId[0]}`).html(`<h2>FINISHED</h2>`);
+      }
+    }
+  }
+
+  findRecord(){
+
   }
 
   render(){
