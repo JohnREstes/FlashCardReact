@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-import BuildCardStack from './components/buildCardStack.js';
+//import BuildCard from './components/buildCardStack.js';
 import BuildCard from './components/buildCard.js';
 import Modal from 'react-awesome-modal';
 
@@ -12,9 +12,10 @@ class App extends Component {
     this.state = {
       flashCards:[],
       loading: true, 
-      visible : false
+      visible : false,
+      cardClicked: false
     }
-
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +38,14 @@ class App extends Component {
       });
   }
 
+
+  handleClick(event){
+    this.setState({
+      cardClicked: true
+    });
+    console.log(event)
+  }
+
   render(){
     return (this.state.loading ? <div>Loading...</div> : (
       <div>
@@ -46,7 +55,10 @@ class App extends Component {
               <input type="button" value="Add New" onClick={() => this.openModal()} />
             </div>
             <div className="container-fluid d-flex justify-content-around">
-                <BuildCard data={this.state.flashCards}/>
+                <BuildCard 
+                data={this.state.flashCards}
+                handleClick={this.handleClick}
+                />
             </div> 
         </div>
         <div>
@@ -54,7 +66,7 @@ class App extends Component {
                     <div>
                         <h1>Title</h1>
                         <p> Some Contents</p>
-                        <a href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a>
+                        <button onClick={() => this.closeModal()}>Close</button>
                     </div>
                 </Modal>
         </div>
