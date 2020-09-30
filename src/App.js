@@ -45,38 +45,40 @@ class App extends Component {
 
 
   handleClick(id){
-    let arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
-    console.log(this.state.flashCards[`${arrayPostion}`].title);
-    console.log(arrayPostion);
-    let string = "";
-    if(currentId[0] !== id){
-      currentId[0] = id;
-      this.setState({
-        cardClickedId: id,
-      });
-      $(`#${currentId[0]}`).css('border', '5px blue solid');
-      $(`#${currentId[1]}`).css('border', '1px black solid');
-      this.setState({
-        initialString: id,
-      });
-      currentId[1] = id;
-    }else{
-      console.log(this.state.flashCards)
-      console.log(this.state.flashCards[`${arrayPostion}`].cards.length);
-      if(timesClickedDefinition === timesClickedWord && (timesClickedDefinition !== (this.state.flashCards[0].cards.length))){
-        string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedWord}`].word;
-        $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
-        timesClickedWord++;
-      }else if (timesClickedDefinition !== timesClickedWord  && (timesClickedDefinition !== (this.state.flashCards[0].cards.length))){
-        string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedDefinition}`].definition;
-        $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
-        timesClickedDefinition++;
+    console.log(id);
+    if(id !== 'ignore'){
+      let arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
+      console.log(this.state.flashCards[`${arrayPostion}`].title);
+      console.log(arrayPostion);
+      let string = "";
+      if(currentId[0] !== id){
+        currentId[0] = id;
+        this.setState({
+          cardClickedId: id,
+        });
+        $(`#${currentId[0]}`).css('border', '5px blue solid');
+        $(`#${currentId[1]}`).css('border', '1px black solid');
+        this.setState({
+          initialString: id,
+        });
+        currentId[1] = id;
       }else{
-        timesClickedDefinition = 0;
-        timesClickedWord = 0;
-        $(`#${currentId[0]}`).html('<h2>' + this.state.flashCards[`${arrayPostion}`].title + '</h2>');
-      }
-    }
+        console.log(this.state.flashCards)
+        console.log(this.state.flashCards[`${arrayPostion}`].cards.length);
+        if(timesClickedDefinition === timesClickedWord && (timesClickedDefinition !== (this.state.flashCards[0].cards.length))){
+          string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedWord}`].word;
+          $(`#${currentId[0]}`).html(`<h2 id="ignore" ${this.handleClick}>${string}</h2>`);
+          timesClickedWord++;
+        }else if (timesClickedDefinition !== timesClickedWord  && (timesClickedDefinition !== (this.state.flashCards[0].cards.length))){
+          string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedDefinition}`].definition;
+          $(`#${currentId[0]}`).html(`<h2 id="ignore" ${this.handleClick}>${string}</h2>`);
+          timesClickedDefinition++;
+        }else{
+          timesClickedDefinition = 0;
+          timesClickedWord = 0;
+          $(`#${currentId[0]}`).html(`<h1 id="ignore" onClick=${this.handleClick}>` + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
+        }
+    }  }
   }
 
   findRecord(){
