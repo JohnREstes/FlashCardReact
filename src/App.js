@@ -56,7 +56,7 @@ class App extends Component {
         this.setState({
           cardClickedId: id,
         });
-        $(`#${currentId[0]}`).css('border', '5px blue solid');
+        $(`#${currentId[0]}`).css('border', '7px green solid');
         $(`#${currentId[1]}`).css('border', '1px black solid');
         this.setState({
           initialString: id,
