@@ -18,7 +18,7 @@ class App extends Component {
       loading: true, 
       visible : false,
       cardClickedId: '',
-      timesClicked: 0
+      initialString: ''
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -46,7 +46,7 @@ class App extends Component {
 
   handleClick(id){
     let arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
-    console.log(id);
+    console.log(this.state.flashCards[`${arrayPostion}`].title);
     console.log(arrayPostion);
     let string = "";
     if(currentId[0] !== id){
@@ -56,6 +56,9 @@ class App extends Component {
       });
       $(`#${currentId[0]}`).css('border', '5px blue solid');
       $(`#${currentId[1]}`).css('border', '1px black solid');
+      this.setState({
+        initialString: id,
+      });
       currentId[1] = id;
     }else{
       console.log(this.state.flashCards)
@@ -71,7 +74,7 @@ class App extends Component {
       }else{
         timesClickedDefinition = 0;
         timesClickedWord = 0;
-        $(`#${currentId[0]}`).html(`<h2>FINISHED</h2>`);
+        $(`#${currentId[0]}`).html('<h2>' + this.state.flashCards[`${arrayPostion}`].title + '</h2>');
       }
     }
   }
