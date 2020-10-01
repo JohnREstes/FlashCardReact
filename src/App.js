@@ -86,7 +86,7 @@ class App extends Component {
         this.setState({
           cardClickedId: id,
         });
-        $(`#${currentId[0]}`).css('border', '7px green solid');
+        $(`#${currentId[0]}`).css('border', '10px #A1C7E4 solid');
         $(`#${currentId[1]}`).css('border', '1px black solid');
         this.setState({
           initialString: id,
@@ -107,24 +107,33 @@ class App extends Component {
           timesClickedDefinition = 0;
           timesClickedWord = 0;
           $(`#${currentId[0]}`).html('<h1>' + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
+          $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
         }
     }  }
   }
 
   render(){
-    return (this.state.loading ? <div className="loading">  Loading...</div> : (
+    return (this.state.loading ? <div className="loading"><span>  </span>Loading...</div> : (
       <div>
         <div>
-            <div id="titleHeader">
+            <div className="row" id="titleHeader">
+            <div className="container-fluid d-flex justify-content-around">
               <h1>Flash Cards</h1> 
-              <input type="button" value="Add New" onClick={() => this.openModal()} />
             </div>
+            </div>
+            <div className="row">
+            <div className="container-fluid d-flex justify-content-around">
+            <input type="button" value="Add New" onClick={() => this.openModal()} />
+            </div>
+            </div>
+            <div calssName="row">
             <div className="container-fluid d-flex justify-content-around">
                 <BuildCard 
                 data={this.state.flashCards}
                 handleClick={this.handleClick}
                 />
             </div> 
+            </div>
         </div>
         <div>
                 <Modal visible={this.state.visible} width="500" height="300" effect="fadeInDown" onClickAway={() => this.closeModal()}>
