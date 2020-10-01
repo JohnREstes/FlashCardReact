@@ -20,7 +20,8 @@ class App extends Component {
       cardClickedId: '',
       initialString: '',
       word: '',
-      definition: ''
+      definition: '',
+      selected: '',
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -41,12 +42,18 @@ class App extends Component {
     this.setState({ definition: event.target.value });
   }
 
+  handleSelect = event => { 
+    this.setState({selected: event.target.value});
+  }
+
   handleSubmit = event => {
     event.preventDefault();
+    const selectedId = '0';
 
     const CardString = {
       word: this.state.word,
-      definition: this.state.definition
+      definition: this.state.definition,
+      selected: selectedId
       };  
 
     axios.post(`http://localhost:5000/api/collections/5f7271353a65fd058f778aeb/cards`, CardString)
@@ -69,7 +76,7 @@ class App extends Component {
 
 
   handleClick(id){
-    console.log(id);
+    console.log(id)
     if(id !== 'ignore'){
       let arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
       let arrayLength = this.state.flashCards[`${arrayPostion}`].cards.length;
@@ -86,13 +93,13 @@ class App extends Component {
         });
         currentId[1] = id;
       }else{
-        console.log(this.state.flashCards)
-        console.log(this.state.flashCards[`${arrayPostion}`].cards.length);
         if(timesClickedDefinition === timesClickedWord && (timesClickedDefinition !== arrayLength)){
+          $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
           string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedWord}`].word;
           $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
           timesClickedWord++;
         }else if (timesClickedDefinition !== timesClickedWord  && (timesClickedDefinition !== arrayLength)){
+          $(`#${currentId[0]}`).removeClass('cardContainer').addClass('cardContainerWhite');
           string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedDefinition}`].definition;
           $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
           timesClickedDefinition++;
@@ -105,7 +112,7 @@ class App extends Component {
   }
 
   render(){
-    return (this.state.loading ? <div>Loading...</div> : (
+    return (this.state.loading ? <div className="loading">  Loading...</div> : (
       <div>
         <div>
             <div id="titleHeader">
@@ -124,7 +131,7 @@ class App extends Component {
                     <div>
                       <form onSubmit={this.handleSubmit}>
                         <label>Select group to add New Card to: </label>
-                        <select name="group" id="group">
+                        <select name="group" id="group" onChange={this.handleSelect}>
                           <option value="react">React</option>
                           <option value="c#">C#</option>
                           <option value="new">New Group</option>
