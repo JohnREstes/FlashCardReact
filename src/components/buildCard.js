@@ -4,7 +4,6 @@ import React from 'react'
 function BuildCardStack(props){
 
   function handleClick(event){
-    console.log(event.target.id);
     props.handleClick(event.target.id);
     
   }

@@ -5,10 +5,7 @@ function BuildCardStack(props){
   
   function handleClick(event){
     props.handleClick(event.target.id);
-    console.log(event.target.id)
   }
-
-    console.log(props.data[0].cards[0].word);
     var card = props.data[0].cards.map(cards => {
       const { _id, word, definition} = cards
       return (

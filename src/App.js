@@ -18,7 +18,9 @@ class App extends Component {
       loading: true, 
       visible : false,
       cardClickedId: '',
-      initialString: ''
+      initialString: '',
+      word: '',
+      definition: ''
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -29,6 +31,28 @@ class App extends Component {
       flashCards: res.data,
       loading: false
     }));
+  }
+
+  handleWordChange = event => {
+    this.setState({ word: event.target.value });
+  }
+
+  handleDefinitionChange = event => {
+    this.setState({ definition: event.target.value });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+
+    const CardString = {
+      word: this.state.word,
+      definition: this.state.definition
+      };  
+
+    axios.post(`http://localhost:5000/api/collections/5f7271353a65fd058f778aeb/cards`, CardString)
+    .then(res => {
+      console.log(res.data)
+    })
   }
 
   openModal() {
@@ -48,8 +72,7 @@ class App extends Component {
     console.log(id);
     if(id !== 'ignore'){
       let arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
-      console.log(this.state.flashCards[`${arrayPostion}`].title);
-      console.log(arrayPostion);
+      let arrayLength = this.state.flashCards[`${arrayPostion}`].cards.length;
       let string = "";
       if(currentId[0] !== id){
         currentId[0] = id;
@@ -65,24 +88,20 @@ class App extends Component {
       }else{
         console.log(this.state.flashCards)
         console.log(this.state.flashCards[`${arrayPostion}`].cards.length);
-        if(timesClickedDefinition === timesClickedWord && (timesClickedDefinition !== (this.state.flashCards[0].cards.length))){
+        if(timesClickedDefinition === timesClickedWord && (timesClickedDefinition !== arrayLength)){
           string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedWord}`].word;
-          $(`#${currentId[0]}`).html(`<h2 id="ignore" ${this.handleClick}>${string}</h2>`);
+          $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
           timesClickedWord++;
-        }else if (timesClickedDefinition !== timesClickedWord  && (timesClickedDefinition !== (this.state.flashCards[0].cards.length))){
+        }else if (timesClickedDefinition !== timesClickedWord  && (timesClickedDefinition !== arrayLength)){
           string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedDefinition}`].definition;
-          $(`#${currentId[0]}`).html(`<h2 id="ignore" ${this.handleClick}>${string}</h2>`);
+          $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
           timesClickedDefinition++;
         }else{
           timesClickedDefinition = 0;
           timesClickedWord = 0;
-          $(`#${currentId[0]}`).html(`<h1 id="ignore" onClick=${this.handleClick}>` + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
+          $(`#${currentId[0]}`).html('<h1>' + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
         }
     }  }
-  }
-
-  findRecord(){
-
   }
 
   render(){
@@ -103,8 +122,23 @@ class App extends Component {
         <div>
                 <Modal visible={this.state.visible} width="500" height="300" effect="fadeInDown" onClickAway={() => this.closeModal()}>
                     <div>
-                        <h1>Title</h1>
-                        <p> Some Contents</p>
+                      <form onSubmit={this.handleSubmit}>
+                        <label>Select group to add New Card to: </label>
+                        <select name="group" id="group">
+                          <option value="react">React</option>
+                          <option value="c#">C#</option>
+                          <option value="new">New Group</option>
+                        </select>
+                        <label>
+                          New Word:
+                          <input type="text" name="word" onChange={this.handleWordChange} />
+                        </label>
+                        <label>
+                          New definition:
+                          <input type="text" name="definition" onChange={this.handleDefinitionChange} />
+                        </label>
+                        <button type="submit">Add</button>
+                      </form>
                         <button onClick={() => this.closeModal()}>Close</button>
                     </div>
                 </Modal>
