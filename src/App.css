@@ -1,6 +1,5 @@
 body{
   background-image: url("blackboard.jpg");
-  background-size: cover;  
   background-size: 100% 100%;
 }
 h1{
@@ -39,5 +38,10 @@ h1{
   font-size: 2rem;
 }
 .arrow{
-  height: 3rem;
+  height: 2rem;
+}
+.cardRow{
+  height: 300px;
+  padding: 0px !important;
+  text-align: center!important;
 }

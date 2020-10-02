@@ -75,41 +75,45 @@ class App extends Component {
   }
 
 
-  handleClick(id){
+  handleClick(name){
+    console.log(name)
+    var direction = name.split(' ').pop();
+    console.log(direction);
+    var id = name.split(' ').shift();
     console.log(id)
-    if(id !== 'ignore'){
-      let arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
-      let arrayLength = this.state.flashCards[`${arrayPostion}`].cards.length;
-      let string = "";
-      if(currentId[0] !== id){
-        currentId[0] = id;
-        this.setState({
-          cardClickedId: id,
-        });
-        $(`#${currentId[0]}`).css('border', '10px #A1C7E4 solid');
-        $(`#${currentId[1]}`).css('border', '1px black solid');
-        this.setState({
-          initialString: id,
-        });
-        currentId[1] = id;
-      }else{
-        if(timesClickedDefinition === timesClickedWord && (timesClickedDefinition !== arrayLength)){
-          $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
-          string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedWord}`].word;
-          $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
-          timesClickedWord++;
-        }else if (timesClickedDefinition !== timesClickedWord  && (timesClickedDefinition !== arrayLength)){
-          $(`#${currentId[0]}`).removeClass('cardContainer').addClass('cardContainerWhite');
-          string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedDefinition}`].definition;
-          $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
-          timesClickedDefinition++;
-        }else{
-          timesClickedDefinition = 0;
-          timesClickedWord = 0;
-          $(`#${currentId[0]}`).html('<h1>' + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
-          $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
-        }
-    }  }
+    // if(id !== 'ignore'){
+    //   let arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
+    //   let arrayLength = this.state.flashCards[`${arrayPostion}`].cards.length;
+    //   let string = "";
+    //   if(currentId[0] !== id){
+    //     currentId[0] = id;
+    //     this.setState({
+    //       cardClickedId: id,
+    //     });
+    //     $(`#${currentId[0]}`).css('border', '10px #A1C7E4 solid');
+    //     $(`#${currentId[1]}`).css('border', '1px black solid');
+    //     this.setState({
+    //       initialString: id,
+    //     });
+    //     currentId[1] = id;
+    //   }else{
+    //     if(timesClickedDefinition === timesClickedWord && (timesClickedDefinition !== arrayLength)){
+    //       $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
+    //       string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedWord}`].word;
+    //       $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
+    //       timesClickedWord++;
+    //     }else if (timesClickedDefinition !== timesClickedWord  && (timesClickedDefinition !== arrayLength)){
+    //       $(`#${currentId[0]}`).removeClass('cardContainer').addClass('cardContainerWhite');
+    //       string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedDefinition}`].definition;
+    //       $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
+    //       timesClickedDefinition++;
+    //     }else{
+    //       timesClickedDefinition = 0;
+    //       timesClickedWord = 0;
+    //       $(`#${currentId[0]}`).html('<h1>' + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
+    //       $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
+    //     }
+    // }  }
   }
 
   render(){
@@ -126,7 +130,7 @@ class App extends Component {
             <input type="button" value="Add New" onClick={() => this.openModal()} />
             </div>
             </div>
-            <div calssName="row">
+            <div className="row">
             <div className="container-fluid d-flex justify-content-around">
                 <BuildCard 
                 data={this.state.flashCards}
@@ -167,3 +171,39 @@ class App extends Component {
 
 export default App;
 
+// handleClick(id){
+//   console.log(id)
+//   if(id !== 'ignore'){
+//     let arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
+//     let arrayLength = this.state.flashCards[`${arrayPostion}`].cards.length;
+//     let string = "";
+//     if(currentId[0] !== id){
+//       currentId[0] = id;
+//       this.setState({
+//         cardClickedId: id,
+//       });
+//       $(`#${currentId[0]}`).css('border', '10px #A1C7E4 solid');
+//       $(`#${currentId[1]}`).css('border', '1px black solid');
+//       this.setState({
+//         initialString: id,
+//       });
+//       currentId[1] = id;
+//     }else{
+//       if(timesClickedDefinition === timesClickedWord && (timesClickedDefinition !== arrayLength)){
+//         $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
+//         string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedWord}`].word;
+//         $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
+//         timesClickedWord++;
+//       }else if (timesClickedDefinition !== timesClickedWord  && (timesClickedDefinition !== arrayLength)){
+//         $(`#${currentId[0]}`).removeClass('cardContainer').addClass('cardContainerWhite');
+//         string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedDefinition}`].definition;
+//         $(`#${currentId[0]}`).html(`<h2>${string}</h2>`);
+//         timesClickedDefinition++;
+//       }else{
+//         timesClickedDefinition = 0;
+//         timesClickedWord = 0;
+//         $(`#${currentId[0]}`).html('<h1>' + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
+//         $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
+//       }
+//   }  }
+// }
