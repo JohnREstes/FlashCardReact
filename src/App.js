@@ -8,6 +8,7 @@ import Modal from 'react-awesome-modal';
 var currentId = [0,0];
 var timesClickedWord = 0;
 var timesClickedDefinition = 0;
+var timesClicked = 0;
 
 class App extends Component {
 
@@ -21,9 +22,11 @@ class App extends Component {
       initialString: '',
       word: '',
       definition: '',
-      selected: '',
+      selected: '5f7271353a65fd058f778aeb',
+      wordDefinitons: []
     }
     this.handleClick = this.handleClick.bind(this);
+    //this.buildJson = this.buildJson.bind(this);
   }
 
   componentDidMount() {
@@ -49,16 +52,14 @@ class App extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const selectedId = '0';
-
     const CardString = {
       word: this.state.word,
-      definition: this.state.definition,
-      selected: selectedId
-      };  
+      definition: this.state.definition
+    };  
 
-    axios.post(`http://localhost:5000/api/collections/5f7271353a65fd058f778aeb/cards`, CardString)
+    axios.post(`http://localhost:5000/api/collections/${this.state.selected}/cards`, CardString)
     .then(res => {
-      console.log(res.data)
+      console.log(res.data);
     })
   }
 
@@ -76,22 +77,32 @@ class App extends Component {
 
 
   handleClick(name){
-    console.log(name)
     var direction = name.split('-').pop();
-    console.log(direction);
     var id = name.split('-').shift();
-    console.log(id)
     var titleId = id + "-title";
-    console.log(titleId);
-    if(id !== 'ignore'){
-      let arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
-      let arrayLength = this.state.flashCards[`${arrayPostion}`].cards.length;
-      let string = "";
+    console.log(name);
+    var arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
+    var arrayLength = this.state.flashCards[`${arrayPostion}`].cards.length;
+    var string = "";
+    if(direction === "left"){
+      if(timesClickedWord === 0){
+        timesClickedWord = arrayLength - 1;
+      }else{
+        timesClickedWord--;
+      }
+      if(timesClickedDefinition === 0){
+        timesClickedDefinition = arrayLength - 1;
+      }else{
+        timesClickedDefinition--;
+      }
+    }
       if(currentId[0] !== id){
         currentId[0] = id;
         this.setState({
           cardClickedId: id,
         });
+        timesClickedDefinition = 0;
+        timesClickedWord = 0;
         $(`#${currentId[0]}`).css('border', '10px #A1C7E4 solid');
         $(`#${currentId[1]}`).css('border', '1px black solid');
         this.setState({
@@ -115,8 +126,38 @@ class App extends Component {
           $(`#${titleId}`).html(`<h1>` + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
           $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
         }
-    }  }
+      }
   }
+
+  // jsonData(id, wordDef){
+  //   this.id = id;
+  //   this.wordDef = wordDef
+  // }
+
+  // buildJson(){
+  //   var wordDef  = '';
+  //   var numberOfCards = 0;
+  //   var wd = [];
+  //   var json = {};
+  //   var numberOfModules = this.state.flashCards.length;
+  //   for(let i = 0; i < numberOfModules; i++){
+  //     wordDef = this.state.flashCards[i]._id;
+  //     numberOfCards = this.state.flashCards[i].cards.length;
+  //     for(let e = 0; e < numberOfCards; e++){
+  //       wd[wd.length] = this.state.flashCards[i].cards[e].word;
+  //       wd[wd.length] = this.state.flashCards[i].cards[e].definition;
+  //     }
+  //     json = new this.jsonData(wordDef, wd)
+  //   }
+  //   var numberOfCards = this.state.flashCards[0].cards[2].word
+  //   //wordDef.push({wordDef: this.state.flashCards[0].definition[0].word})
+  //   //wordDef.push({id: this.state.flashCards[0]._id})
+  //   // wordDef[0].wordDef[0] = this.state.flashCards[0]._id;
+  //   // wordDef[0].wordDef[1] = 2;
+  //   console.log(wordDef);
+  //   console.log(wd);
+  //   console.log(json)
+  // }
 
   render(){
     return (this.state.loading ? <div className="loading"><span>  </span>Loading...</div> : (
@@ -142,14 +183,13 @@ class App extends Component {
             </div>
         </div>
         <div>
-                <Modal visible={this.state.visible} width="500" height="300" effect="fadeInDown" onClickAway={() => this.closeModal()}>
+                <Modal visible={this.state.visible} width="500" height="290" effect="fadeInDown" onClickAway={() => this.closeModal()}>
                     <div>
                       <form onSubmit={this.handleSubmit}>
-                        <label>Select group to add New Card to: </label>
-                        <select name="group" id="group" onChange={this.handleSelect}>
-                          <option value="react">React</option>
-                          <option value="c#">C#</option>
-                          <option value="new">New Group</option>
+                        <label><h3>Select group to add New Card to: </h3></label>
+                        <select name="title" id="title" onChange={this.handleSelect}>
+                          <option value="5f7271353a65fd058f778aeb">React</option>
+                          <option value="5f72714d3a65fd058f778af2">C#</option>
                         </select>
                         <label>
                           New Word:
@@ -159,9 +199,13 @@ class App extends Component {
                           New definition:
                           <input type="text" name="definition" onChange={this.handleDefinitionChange} />
                         </label>
+                        <div>
                         <button type="submit">Add</button>
+                        </div>
                       </form>
-                        <button onClick={() => this.closeModal()}>Close</button>
+                      <div id="closeButton">
+                      <button onClick={() => this.closeModal()}>Close</button>
+                      </div>
                     </div>
                 </Modal>
         </div>
@@ -172,6 +216,59 @@ class App extends Component {
 }
 
 export default App;
+
+// handleClick(name){
+//   var direction = name.split('-').pop();
+//   var id = name.split('-').shift();
+//   var titleId = id + "-title";
+//   console.log(name);
+//   var arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
+//   var arrayLength = this.state.flashCards[`${arrayPostion}`].cards.length;
+//   var string = "";
+//   if(direction === "left"){
+//     if(timesClickedWord === 0){
+//       timesClickedWord = arrayLength - 1;
+//     }else{
+//       timesClickedWord--;
+//     }
+//     if(timesClickedDefinition === 0){
+//       timesClickedDefinition = arrayLength - 1;
+//     }else{
+//       timesClickedDefinition--;
+//     }
+//   }
+//     if(currentId[0] !== id){
+//       currentId[0] = id;
+//       this.setState({
+//         cardClickedId: id,
+//       });
+//       timesClickedDefinition = 0;
+//       timesClickedWord = 0;
+//       $(`#${currentId[0]}`).css('border', '10px #A1C7E4 solid');
+//       $(`#${currentId[1]}`).css('border', '1px black solid');
+//       this.setState({
+//         initialString: id,
+//       });
+//       currentId[1] = id;
+//     }else{
+//       if(timesClickedDefinition === timesClickedWord && (timesClickedDefinition !== arrayLength)){
+//         $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
+//         string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedWord}`].word;
+//         $(`#${titleId}`).html(`<h2>${string}</h2>`);
+//         timesClickedWord++;
+//       }else if (timesClickedDefinition !== timesClickedWord  && (timesClickedDefinition !== arrayLength)){
+//         $(`#${currentId[0]}`).removeClass('cardContainer').addClass('cardContainerWhite');
+//         string = this.state.flashCards[`${arrayPostion}`].cards[`${timesClickedDefinition}`].definition;
+//         $(`#${titleId}`).html(`<h2>${string}</h2>`);
+//         timesClickedDefinition++;
+//       }else{
+//         timesClickedDefinition = 0;
+//         timesClickedWord = 0;
+//         $(`#${titleId}`).html(`<h1>` + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
+//         $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
+//       }
+//     }
+// }
 
 // handleClick(id){
 //   console.log(id)

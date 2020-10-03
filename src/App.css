@@ -2,14 +2,31 @@ body{
   background-image: url("blackboard.jpg");
   background-size: 100% 100%;
 }
+button{
+  font-size: 1.5rem;
+  padding: 5px;
+  margin: 5px;
+  text-align: center!important;
+}
 h1{
   text-align: center!important;
   font-size: 4rem;
+}
+form{
+  font-size: 1.5rem;
+  padding: 5px;
+  text-align: center!important;
 }
 #titleHeader{
   text-align: center;
   color: white;
   font-family: "Comic Sans MS", cursive, sans-serif;
+}
+#closeButton{
+  font-size: 1.5rem;
+  padding: 5px;
+  margin: 5px;
+  text-align: center!important;
 }
 .cardContainer{
   border: 1px black solid;
@@ -38,7 +55,8 @@ h1{
   font-size: 2rem;
 }
 .arrow{
-  height: 2rem;
+  height: 1.5rem;
+  margin: 3px;
 }
 .cardRow{
   height: 300px;
