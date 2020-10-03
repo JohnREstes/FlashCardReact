@@ -11,6 +11,7 @@ function BuildCardStack(props){
       const rightId = _id + "-right";
       const leftId = _id + "-left";
       const titleId = _id + "-title";
+      const numberId = _id + "-number";
       return (
         <div className="col-12 col-md-5 cardContainer" key={_id} id={_id}>
           <div className="row">
@@ -23,7 +24,12 @@ function BuildCardStack(props){
             <div className="col-1 cardRow">
               <img src="./right.png" className="arrow" alt="right arrow" id={rightId} onClick={handleClick}></img>
             </div>
-          </div>          
+          </div> 
+          <div className="row">
+            <div className="col-12 d-flex align-items-center cardNumber">
+                    <h3 className="cardNumber" id={numberId}></h3>
+            </div>  
+          </div>    
         </div>
       )
     })

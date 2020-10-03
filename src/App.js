@@ -77,6 +77,7 @@ class App extends Component {
     var direction = name.split('-').pop();
     var id = name.split('-').shift();
     var titleId = id + "-title";
+    var numberId = id + "-number";
     var arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
     var arrayLength = ((this.state.flashCards[`${arrayPostion}`].cards.length) * 2);
     var string = "";
@@ -109,17 +110,21 @@ class App extends Component {
           $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
           cardPosition = (timesClicked/2);
           string = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].word;
-          $(`#${titleId}`).html(`<h2>${string}</h2>`);
+          $(`#${titleId}`).html(`<h2 className="cardRow">${string}</h2>`);
+          $(`#${numberId}`).html(`<h2 className="cardRow">${((timesClicked)+1)} of ${arrayLength}</h2>`);
           initial = false;
         }else if (timesClicked%2 === 1  && (timesClicked !== arrayLength)){
           $(`#${currentId[0]}`).removeClass('cardContainer').addClass('cardContainerWhite');
           cardPosition = Math.floor(timesClicked/2);
           string = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].definition;
-          $(`#${titleId}`).html(`<h2>${string}</h2>`);
+          $(`#${titleId}`).html(`<h2 className="cardRow">${string}</h2>`);
+          $(`#${numberId}`).html(`<h2 className="cardRow">${((timesClicked)+1)} of ${arrayLength}</h2>`);
         }else{
           timesClicked = 0;
+          initial = true;
           $(`#${titleId}`).html(`<h1>` + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
           $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
+          $(`#${numberId}`).html(`<h2></h2>`);
         }
       }
   }

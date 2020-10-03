@@ -11,6 +11,7 @@ button{
 h1{
   text-align: center!important;
   font-size: 4rem;
+  width: 100%;
 }
 form{
   font-size: 1.5rem;
@@ -59,7 +60,13 @@ form{
   margin: 3px;
 }
 .cardRow{
-  height: 300px;
+  height: 250px;
   padding: 0px !important;
   text-align: center!important;
+}
+.cardNumber{
+  height: 50px;
+  width: 500px;
+  padding: 0px !important;
+  text-align: center!important;  
 }
