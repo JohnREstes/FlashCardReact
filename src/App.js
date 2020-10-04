@@ -111,19 +111,21 @@ class App extends Component {
           $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
           cardPosition = (timesClicked/2);
           string = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].word;
-          $(`#${titleId}`).html(`<h2 className="cardRow">${string}</h2>`);
+          $(`#${titleId}`).animate({left: '75px'}).html(`<h2 className="cardRow">${string}</h2>`);
+          //$(`#${titleId}`).animate({height: "100%"});
           $(`#${numberId}`).html(`<h2 className="cardRow">${((timesClicked)+1)} of ${arrayLength}</h2>`);
           initial = false;
         }else if (timesClicked%2 === 1  && (timesClicked !== arrayLength)){
           $(`#${currentId[0]}`).removeClass('cardContainer').addClass('cardContainerWhite');
           cardPosition = Math.floor(timesClicked/2);
           string = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].definition;
-          $(`#${titleId}`).html(`<h2 className="cardRow">${string}</h2>`);
+          $(`#${titleId}`).animate({left: '0px'}).html(`<h2 className="cardRow">${string}</h2>`);
+          //$(`#${titleId}`).animate({height: 'toggle'});
           $(`#${numberId}`).html(`<h2 className="cardRow">${((timesClicked)+1)} of ${arrayLength}</h2>`);
         }else{
           timesClicked = 0;
           initial = true;
-          $(`#${titleId}`).html(`<h1>` + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
+          $(`#${titleId}`).fadeOut("slow").html(`<h1>` + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
           $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
           $(`#${numberId}`).html(`<h2></h2>`);
         }
