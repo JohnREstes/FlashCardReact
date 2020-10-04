@@ -17,10 +17,6 @@ class App extends Component {
       flashCards:[],
       loading: true, 
       visible : false,
-      cardClickedId: '',
-      initialString: '',
-      word: '',
-      definition: '',
       selected: '5f7271353a65fd058f778aeb',
       wordDefinitons: []
     }
@@ -96,38 +92,31 @@ class App extends Component {
     }
       if(currentId[0] !== id){
         currentId[0] = id;
-        this.setState({
-          cardClickedId: id,
-        });
         timesClicked = 0;
         $(`#${currentId[0]}`).css('border', '10px #A1C7E4 solid');
         $(`#${currentId[1]}`).css('border', '1px black solid');
-        this.setState({
-          initialString: id,
-        });
         currentId[1] = id;
       }else{
         if(timesClicked%2 === 0 && (timesClicked !== arrayLength)){
           $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
           cardPosition = (timesClicked/2);
           string = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].word;
-          $(`#${titleId}`).animate({left: '75px'}).html(`<h2 className="cardRow">${string}</h2>`);
-          //$(`#${titleId}`).animate({height: "100%"});
-          $(`#${numberId}`).html(`<h2 className="cardRow">${((timesClicked)+1)} of ${arrayLength}</h2>`);
+          $(`#${titleId}`).animate({left: '50px'}).html(`<h1>${string}</h1>`);
+          $(`#${numberId}`).html(`<h2>${((timesClicked)+1)} of ${arrayLength}</h2>`);
           initial = false;
         }else if (timesClicked%2 === 1  && (timesClicked !== arrayLength)){
           $(`#${currentId[0]}`).removeClass('cardContainer').addClass('cardContainerWhite');
           cardPosition = Math.floor(timesClicked/2);
           string = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].definition;
-          $(`#${titleId}`).animate({left: '0px'}).html(`<h2 className="cardRow">${string}</h2>`);
-          //$(`#${titleId}`).animate({height: 'toggle'});
-          $(`#${numberId}`).html(`<h2 className="cardRow">${((timesClicked)+1)} of ${arrayLength}</h2>`);
+          $(`#${titleId}`).animate({left: '0px'}).html(`<h2>${string}</h2>`);
+          $(`#${numberId}`).html(`<h2>${((timesClicked)+1)} of ${arrayLength}</h2>`);
         }else{
           timesClicked = 0;
           initial = true;
-          $(`#${titleId}`).fadeOut("slow").html(`<h1>` + this.state.flashCards[`${arrayPostion}`].title + '</h1>');
+          $(`#${titleId}`).html(`<h1 class="hidden" id="titleBar${id}">` + this.state.flashCards[`${arrayPostion}`].title + ' Deck</h1>');
+          $(`#titleBar${id}`).slideDown()
           $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
-          $(`#${numberId}`).html(`<h2></h2>`);
+          $(`#${numberId}`).html(`<h2 class="hidden">John</h2>`);
         }
       }
       console.log(timesClicked);  

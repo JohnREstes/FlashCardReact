@@ -19,7 +19,7 @@ function BuildCardStack(props){
               <img src="./left.png" className="arrow" alt="left arrow" id={leftId} onClick={handleClick}></img>
             </div>
             <div className="col-10 cardRow d-flex align-items-center"  id={titleId}>
-                    <h1>{title}</h1>
+                    <h1>{title} Deck</h1>
             </div>
             <div className="col-1 cardRow">
               <img src="./right.png" className="arrow" alt="right arrow" id={rightId} onClick={handleClick}></img>

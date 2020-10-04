@@ -70,3 +70,6 @@ form{
   padding: 0px !important;
   text-align: center!important;  
 }
+.hidden{
+  display: none;
+}
