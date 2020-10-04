@@ -27,7 +27,7 @@ function BuildCardStack(props){
           </div> 
           <div className="row">
             <div className="col-12 d-flex align-items-center cardNumber">
-                    <h3 className="cardNumber" id={numberId}></h3>
+                    <h3 className="cardNumber" id={numberId} alt="Card Index"> </h3>
             </div>  
           </div>    
         </div>

@@ -56,7 +56,7 @@ class App extends Component {
 
     axios.post(`http://localhost:5000/api/collections/${this.state.selected}/cards`, CardString)
     .then(res => {
-      console.log(res.data);
+      window.location.reload(false);
     })
   }
 
@@ -82,6 +82,7 @@ class App extends Component {
     var arrayLength = ((this.state.flashCards[`${arrayPostion}`].cards.length) * 2);
     var string = "";
     var cardPosition = 0;
+    console.log(id);
     if(direction === "left"){
       if(timesClicked === 0){
         timesClicked = (arrayLength - 1);
@@ -127,14 +128,15 @@ class App extends Component {
           $(`#${numberId}`).html(`<h2></h2>`);
         }
       }
+      console.log(timesClicked);  
   }
 
   render(){
     return (this.state.loading ? <div className="loading"><span>  </span>Loading...</div> : (
       <div>
-        <div>
+        <div className="container-fluid">
             <div className="row" id="titleHeader">
-            <div className="container-fluid d-flex justify-content-around">
+            <div className="col-12 d-flex justify-content-around">
               <h1>Flash Cards</h1> 
             </div>
             </div>
@@ -153,13 +155,14 @@ class App extends Component {
             </div>
         </div>
         <div>
-                <Modal visible={this.state.visible} width="500" height="290" effect="fadeInDown" onClickAway={() => this.closeModal()}>
+                <Modal visible={this.state.visible} width="520" height="290" effect="fadeInDown" onClickAway={() => this.closeModal()}>
                     <div>
                       <form onSubmit={this.handleSubmit}>
                         <label><h3>Select group to add New Card to: </h3></label>
                         <select name="title" id="title" onChange={this.handleSelect}>
                           <option value="5f7271353a65fd058f778aeb">React</option>
                           <option value="5f72714d3a65fd058f778af2">C#</option>
+                          <option value="5f7913b7104ae8731ce1879c">Flutter</option>
                         </select>
                         <label>
                           New Word:
