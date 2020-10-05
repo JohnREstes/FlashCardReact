@@ -1,21 +1,58 @@
-import React from 'react'
+class App extends React.Component {
+  state = {
+  value: ""
+  };
 
-
-function BuildCardStack(props){
-  
-  function handleClick(event){
-    props.handleClick(event.target.id);
+items = [
+  {
+    id: 0,
+    title: "first item"
+  },
+  {
+    id: 1,
+    title: "second item"
+  },
+  {
+    id: 2,
+    title: "third item"
   }
-    var card = props.data[0].cards.map(cards => {
-      const { _id, word, definition} = cards
-      return (
-        <div className="col-12 col-lg-5 d-flex align-items-center cardContainer" key={_id} id={_id} onClick={handleClick}>
-                    <h1>{word}</h1>
-                    <h1>{definition}</h1>
-        </div>
-      )
-    })
-return (<div className="row d-flex justify-content-between">{card}</div>)
-  }
+];
 
-export default BuildCardStack;
+handleChange = e => {
+  this.setState({
+    value: e.target.value
+  });
+};
+
+handleAddItem = () => {
+  if (this.state.value === "") return;
+  const item = new Object();
+  item.id = this.items.length;
+  item.title = this.state.value;
+  this.items.push(item);
+  this.setState({
+    value: ""
+  });
+
+  console.log(this.items);
+};
+
+render() {
+  const items = this.items.map(item => <p>{item.title}</p>);
+  return (
+    <>
+      <label>
+        <input
+          value={this.state.value}
+          type="text"
+          onChange={this.handleChange}
+        />
+        <button onClick={this.handleAddItem}>Add item</button>
+      </label>
+      <h1>{items}</h1>
+    </>
+  );
+}
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));

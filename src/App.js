@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import $ from 'jquery';
 import BuildCard from './components/buildCard.js';
+import BuildSelect from './components/buildSelect.js';
 import Modal from 'react-awesome-modal';
 
 var currentId = [0,0];
@@ -150,11 +151,10 @@ class App extends Component {
                     <div>
                       <form onSubmit={this.handleSubmit}>
                         <label><h3>Select group to add New Card to: </h3></label>
-                        <select name="title" id="title" onChange={this.handleSelect}>
-                          <option value="5f7271353a65fd058f778aeb">React</option>
-                          <option value="5f72714d3a65fd058f778af2">C#</option>
-                          <option value="5f7913b7104ae8731ce1879c">Flutter</option>
-                        </select>
+                          <BuildSelect
+                            data={this.state.flashCards}
+                            handleClick={this.handleSelect}
+                          />
                         <label>
                           New Word:
                           <input type="text" name="word" onChange={this.handleWordChange} />
@@ -180,3 +180,82 @@ class App extends Component {
 }
 
 export default App;
+
+// var titles = [];
+// var words = [{}];
+
+// class App extends React.Component {
+//   state = {
+//   value: "",
+//   flashCards:[],
+//   };
+//     constructor(props) {
+//     super(props)
+//     this.handleAddItem = this.handleAddItem.bind(this);
+//   }
+  
+//   items = [];
+
+//   componentDidMount() {
+//     axios.get(`http://localhost:5000/api/collections`)
+//     .then(res => this.setState({ 
+//       flashCards: res.data,
+//       loading: false
+//     }));
+//   }
+
+//   handleChange = e => {
+//     this.setState({
+//       value: e.target.value
+//     });
+//   };
+
+//   handleAddItem(){
+//     var numberOfIds = 0;
+//     var numberOfCards = 0;
+//     var numberOfClicks = 0;
+//     var item = new Object();
+//     item.id = this.state.flashCards.map(x => x._id);
+//     this.items.push(item)
+//     numberOfIds = this.state.flashCards.length;
+//     console.log(numberOfIds);
+//     for(let i = 0; i < numberOfIds; i++){
+//       numberOfCards = this.state.flashCards[i].cards.length;
+//       console.log(numberOfCards);
+//       for(let e = 0; e < numberOfCards; e++){
+//       item.wordDef = this.state.flashCards[i].cards[e].word;
+//       item.wordDef += " " + this.state.flashCards[i].cards[e].definition;
+//       item.numberOfClicks = 0;
+//       this.items[i].push(item)
+//       }
+//     };
+//     console.log(item);
+//   };
+
+//   buildString(){
+    
+//   }
+
+//   render() {
+//     const items = this.items.map(item => <p>{item.title}</p>);
+//     titles = this.state.flashCards.map(x => x._id + ' ');
+//     words = this.state.flashCards.map(x => <p>{x.title}</p>);
+//     return (
+//       <>
+//         <label>
+//           <input
+//             value={this.state.value}
+//             type="text"
+//             onChange={this.handleChange}
+//           />
+//           <button onClick={this.handleAddItem}>Add item</button>
+//         </label>
+//         <h1>{items}</h1>
+//         <h1>{titles}</h1>
+//         <h1>{words}</h1>
+//       </>
+//     );
+//   }
+// }
+
+// export default App;
