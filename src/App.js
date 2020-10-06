@@ -74,6 +74,7 @@ class App extends Component {
     var id = name.split('-').shift();
     var titleId = id + "-title";
     var numberId = id + "-number";
+    var editId = id +"-edit";
     var arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
     var arrayLength = ((this.state.flashCards[`${arrayPostion}`].cards.length) * 2);
     var string = "";
@@ -85,6 +86,8 @@ class App extends Component {
       }else{
         timesClicked--;
       }
+    }else if(direction === "edit"){
+      console.log(editId);
     }else{
       if(initial === false){
         timesClicked++;
@@ -103,6 +106,7 @@ class App extends Component {
           string = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].word;
           $(`#${titleId}`).animate({left: '50px'}).html(`<h1>${string}</h1>`);
           $(`#${numberId}`).html(`<h2>${((timesClicked)+1)} of ${arrayLength}</h2>`);
+          $(`#${editId}`).css('display', 'inline');
           initial = false;
         }else if (timesClicked%2 === 1  && (timesClicked !== arrayLength)){
           $(`#${currentId[0]}`).removeClass('cardContainer').addClass('cardContainerWhite');
@@ -110,6 +114,7 @@ class App extends Component {
           string = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].definition;
           $(`#${titleId}`).animate({left: '0px'}).html(`<h2>${string}</h2>`);
           $(`#${numberId}`).html(`<h2>${((timesClicked)+1)} of ${arrayLength}</h2>`);
+          $(`#${editId}`).css('display', 'none');
         }else{
           timesClicked = 0;
           initial = true;
@@ -180,82 +185,3 @@ class App extends Component {
 }
 
 export default App;
-
-// var titles = [];
-// var words = [{}];
-
-// class App extends React.Component {
-//   state = {
-//   value: "",
-//   flashCards:[],
-//   };
-//     constructor(props) {
-//     super(props)
-//     this.handleAddItem = this.handleAddItem.bind(this);
-//   }
-  
-//   items = [];
-
-//   componentDidMount() {
-//     axios.get(`http://localhost:5000/api/collections`)
-//     .then(res => this.setState({ 
-//       flashCards: res.data,
-//       loading: false
-//     }));
-//   }
-
-//   handleChange = e => {
-//     this.setState({
-//       value: e.target.value
-//     });
-//   };
-
-//   handleAddItem(){
-//     var numberOfIds = 0;
-//     var numberOfCards = 0;
-//     var numberOfClicks = 0;
-//     var item = new Object();
-//     item.id = this.state.flashCards.map(x => x._id);
-//     this.items.push(item)
-//     numberOfIds = this.state.flashCards.length;
-//     console.log(numberOfIds);
-//     for(let i = 0; i < numberOfIds; i++){
-//       numberOfCards = this.state.flashCards[i].cards.length;
-//       console.log(numberOfCards);
-//       for(let e = 0; e < numberOfCards; e++){
-//       item.wordDef = this.state.flashCards[i].cards[e].word;
-//       item.wordDef += " " + this.state.flashCards[i].cards[e].definition;
-//       item.numberOfClicks = 0;
-//       this.items[i].push(item)
-//       }
-//     };
-//     console.log(item);
-//   };
-
-//   buildString(){
-    
-//   }
-
-//   render() {
-//     const items = this.items.map(item => <p>{item.title}</p>);
-//     titles = this.state.flashCards.map(x => x._id + ' ');
-//     words = this.state.flashCards.map(x => <p>{x.title}</p>);
-//     return (
-//       <>
-//         <label>
-//           <input
-//             value={this.state.value}
-//             type="text"
-//             onChange={this.handleChange}
-//           />
-//           <button onClick={this.handleAddItem}>Add item</button>
-//         </label>
-//         <h1>{items}</h1>
-//         <h1>{titles}</h1>
-//         <h1>{words}</h1>
-//       </>
-//     );
-//   }
-// }
-
-// export default App;

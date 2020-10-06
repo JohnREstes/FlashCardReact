@@ -60,6 +60,7 @@ form{
 .arrow{
   height: 1.5rem;
   margin: 3px;
+  vertical-align: bottom;
 }
 .cardRow{
   height: 250px;
@@ -74,4 +75,17 @@ form{
 }
 .hidden{
   display: none;
+}
+.bottom{
+  vertical-align: bottom;
+}
+#top{
+  height: 250px;
+}
+#btm{
+  height: 50px;
+}
+.edit{
+  padding: 0px !important;
+  text-align: center!important; 
 }
