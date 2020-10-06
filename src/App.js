@@ -51,8 +51,8 @@ class App extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const CardString = {
-      word: this.state.word,
-      definition: this.state.definition
+      word: this.state.initialWord,
+      definition: this.state.initialDefinition
     };  
 
     axios.post(`http://localhost:5000/api/collections/${this.state.selected}/cards`, CardString)
@@ -97,7 +97,6 @@ class App extends Component {
     var titleId = id + "-title";
     var numberId = id + "-number";
     var editId = id +"-edit";
-    var cardID = '';
     var arrayPostion = this.state.flashCards.findIndex(x => x._id === id);
     var arrayLength = ((this.state.flashCards[`${arrayPostion}`].cards.length) * 2);
     var string = "";
@@ -111,7 +110,6 @@ class App extends Component {
       }
     }else if(direction === "edit"){
       console.log(editId);
-
       this.setState({
         visible : true
       });
@@ -131,12 +129,10 @@ class App extends Component {
           $(`#${currentId[0]}`).removeClass('cardContainerWhite').addClass('cardContainer');
           cardPosition = (timesClicked/2);
           string = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].word;
-          cardID = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].id;
           this.setState({
-            initialWord : this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].word
-          });
-          this.setState({
-          initialDefinition: this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].definition
+            initialWord : this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].word,
+            initialDefinition: this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].definition,
+            selectedCard: this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].id
           });
           $(`#${titleId}`).animate({left: '50px'}).html(`<h1>${string}</h1>`);
           $(`#${numberId}`).html(`<h2>${((timesClicked)+1)} of ${arrayLength}</h2>`);
@@ -146,7 +142,6 @@ class App extends Component {
           $(`#${currentId[0]}`).removeClass('cardContainer').addClass('cardContainerWhite');
           cardPosition = Math.floor(timesClicked/2);
           string = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].definition;
-          cardID = this.state.flashCards[`${arrayPostion}`].cards[`${cardPosition}`].id;
           $(`#${titleId}`).animate({left: '0px'}).html(`<h2>${string}</h2>`);
           $(`#${numberId}`).html(`<h2>${((timesClicked)+1)} of ${arrayLength}</h2>`);
           $(`#${editId}`).css('display', 'none');
@@ -190,7 +185,7 @@ class App extends Component {
                 <Modal visible={this.state.visible} width="520" height="325" effect="fadeInDown" onClickAway={() => this.closeModal()}>
                     <div>
                       <form onSubmit={this.handleSubmit}>
-                        <label><h3>Select group to add New Card to: </h3></label>
+                        <label id="modalHeader"><h3>Select group to add New Card to: </h3></label>
                         <select name="title" id="title" onChange={this.handleSelect}>
                           <option value="5f7271353a65fd058f778aeb">React</option>
                           <option value="5f72714d3a65fd058f778af2">C#</option>
