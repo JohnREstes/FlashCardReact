@@ -79,13 +79,13 @@ form{
 .bottom{
   vertical-align: bottom;
 }
-#top{
-  height: 250px;
-}
-#btm{
-  height: 50px;
-}
 .edit{
   padding: 0px !important;
   text-align: center!important; 
+}
+.buttonDiv{
+  display: inline-flex;
+}
+#definition{
+  width: 475px;
 }

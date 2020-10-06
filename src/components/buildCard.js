@@ -30,7 +30,7 @@ function BuildCard(props){
               <h3 className="cardNumber" id={numberId} alt="Card Index"> </h3>
             </div>  
             <div className="col-1 edit">
-              <img src="./editIcon.png" className="arrow" alt="edit icon" id={editId} onClick={handleClick}></img>
+              <img src="./editIcon.png" className="arrow hidden" alt="edit icon" id={editId} onClick={handleClick}></img>
             </div> 
           </div>    
         </div>
