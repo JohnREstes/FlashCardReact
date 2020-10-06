@@ -1,7 +1,6 @@
 import React from 'react'
 
-
-function BuildCardStack(props){
+function BuildCard(props){
 
   function handleClick(event){
     props.handleClick(event.target.id); 
@@ -36,4 +35,4 @@ function BuildCardStack(props){
 return (<div className="row d-flex justify-content-between">{card}</div>)
   }
 
-export default BuildCardStack;
+export default BuildCard;

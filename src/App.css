@@ -38,6 +38,7 @@ form{
   background-color: white;
   margin: 10px;
   font-family: Marker Felt, fantasy;
+  padding: 0px, 20px;
 }
 .cardContainerWhite{
   border: 1px black solid;
@@ -46,6 +47,7 @@ form{
   background-color: white;
   margin: 10px;
   font-family: Marker Felt, fantasy;
+  padding: 0px, 20px;
 }
 .align-items-center {
   align-items: center!important;

@@ -3,7 +3,6 @@ import axios from 'axios';
 import './App.css';
 import $ from 'jquery';
 import BuildCard from './components/buildCard.js';
-import BuildSelect from './components/buildSelect.js';
 import Modal from 'react-awesome-modal';
 
 var currentId = [0,0];
@@ -151,10 +150,11 @@ class App extends Component {
                     <div>
                       <form onSubmit={this.handleSubmit}>
                         <label><h3>Select group to add New Card to: </h3></label>
-                          <BuildSelect
-                            data={this.state.flashCards}
-                            handleClick={this.handleSelect}
-                          />
+                        <select name="title" id="title" onChange={this.handleSelect}>
+                          <option value="5f7271353a65fd058f778aeb">React</option>
+                          <option value="5f72714d3a65fd058f778af2">C#</option>
+                          <option value="5f7913b7104ae8731ce1879c">Flutter</option>
+                        </select>
                         <label>
                           New Word:
                           <input type="text" name="word" onChange={this.handleWordChange} />
